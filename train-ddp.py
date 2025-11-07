@@ -42,7 +42,6 @@ RESUME_FROM    = None  # e.g., "checkpoints_xxx/checkpoint-XXXX"
 TARGET_GLOBAL_BATCH = 16
 per_device_bs = max(1, TARGET_GLOBAL_BATCH // max(1, WORLD_SIZE))
 grad_accum    = 1  # increase this if you want bigger global batch without OOM
-log.info(f"per_device_train_batch_size={per_device_bs}, gradient_accumulation_steps={grad_accum}")
 
 # ---------------------- 1) Load model/tokenizer ----------------------
 # Data-parallel load: each process places the model on its own GPU.
@@ -147,8 +146,6 @@ trainer = SFTTrainer(
     callbacks     = [GradientGuard()],
 )
 
-if RANK == 0:
-    log.info("Start training on main process...")
 train_stats = trainer.train(resume_from_checkpoint=RESUME_FROM)
 
 # --------------------- 7) Save only on rank 0 ------------------------
@@ -158,7 +155,3 @@ if RANK == 0:
     tokenizer.save_pretrained(save_dir)
     print(f"✅ Training complete. Saved to: {save_dir}")
 
-# ----------------------- Graceful DDP cleanup ------------------------
-if IS_DIST and torch.distributed.is_initialized():
-    torch.distributed.barrier()
-    torch.distributed.destroy_process_group()
