@@ -27,12 +27,6 @@ RANK        = int(os.environ.get("RANK", 0))
 WORLD_SIZE  = int(os.environ.get("WORLD_SIZE", 1))
 IS_DIST     = WORLD_SIZE > 1
 
-# Less noise on non-master ranks
-logging.basicConfig(level=logging.INFO if RANK == 0 else logging.WARNING)
-log = logging.getLogger("train_ddp")
-log.info(f"RANK={RANK} LOCAL_RANK={LOCAL_RANK} WORLD_SIZE={WORLD_SIZE} device={device}")
-
-
 # --------------------------- User config -----------------------------
 LORA_RANK      = 32
 NUM_EPOCHS     = 3
