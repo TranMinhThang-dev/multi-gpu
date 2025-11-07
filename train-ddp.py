@@ -27,12 +27,6 @@ RANK        = int(os.environ.get("RANK", 0))
 WORLD_SIZE  = int(os.environ.get("WORLD_SIZE", 1))
 IS_DIST     = WORLD_SIZE > 1
 
-if IS_DIST:
-    if not torch.distributed.is_initialized():
-        torch.distributed.init_process_group(backend="nccl", init_method="env://")
-    torch.cuda.set_device(LOCAL_RANK)
-device = torch.device(f"cuda:{LOCAL_RANK}" if torch.cuda.is_available() else "cpu")
-
 # Less noise on non-master ranks
 logging.basicConfig(level=logging.INFO if RANK == 0 else logging.WARNING)
 log = logging.getLogger("train_ddp")
