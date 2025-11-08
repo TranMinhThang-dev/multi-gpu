@@ -175,18 +175,18 @@ training_args = GRPOConfig(
     save_steps = 5,
     max_grad_norm = 0.1,
     ddp_find_unused_parameters = False,
-    report_to = "wandb",
+    report_to = "none",
     output_dir = "outputs",
     min_p = 0.1,
     temperature = 0.6,
     loss_type = "dr_grpo",
 )
 
-run = wandb.init(
-    project="huggingface",
-    name="AI_tutor_GRPO_fixed",
-    config=training_args,
-)
+# run = wandb.init(
+#     project="huggingface",
+#     name="AI_tutor_GRPO_fixed",
+#     config=training_args,
+# )
 
 trainer = GRPOTrainer(
     model=model,
