@@ -198,15 +198,19 @@ print("Number of math sample:", len(math_dataset))
 
 # converted_dataset = concatenate_datasets([math_dataset.select(range(10)), physic_dataset.select(range(10)), chemistry_dataset.select(range(10))])
 converted_dataset = concatenate_datasets([math_dataset])
-    
-converted_dataset = converted_dataset.map(
-    lambda example: {
+
+def func(example):
+    print(example)
+    return {
         "prompt": tokenizer.apply_chat_template(
             example["prompt"],
             tokenize=False,
             add_generation_prompt=True,
         )
     }
+
+converted_dataset = converted_dataset.map(
+    lambda example: func(example)
 )
 print("Convert to chat prompt template succesfully!!!")
 
