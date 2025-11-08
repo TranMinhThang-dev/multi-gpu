@@ -101,7 +101,7 @@ print("📚 Loading and preparing dataset...")
 
 dataset_dict = load_dataset(
     'json',
-    data_files={'math': "../data_thinking/correct_data.json"},
+    data_files={'math': "/kaggle/input/thinking-data2/data_thinking/correct_data.json"},
 )
 math_dataset = dataset_dict['math'].map(lambda ex: convert_to_conversation(ex, 'math'))
 
