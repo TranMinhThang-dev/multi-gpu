@@ -177,9 +177,9 @@ training_args = SFTConfig(
     # ddp_find_unused_parameters = False,
     report_to = "none",
     output_dir = "outputs",
-    min_p = 0.1,
-    temperature = 0.6,
-    loss_type = "dr_grpo",
+    # min_p = 0.1,
+    # temperature = 0.6,
+    # loss_type = "dr_grpo",
 )
 
 # run = wandb.init(
