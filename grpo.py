@@ -200,7 +200,7 @@ print("Number of math sample:", len(math_dataset))
 converted_dataset = concatenate_datasets([math_dataset])
 
 def func(example):
-    print(example)
+    print(example['prompt'])
     return {
         "prompt": tokenizer.apply_chat_template(
             example["prompt"],
