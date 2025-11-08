@@ -8,7 +8,7 @@ import json
 from tqdm import tqdm
 import torch
 from unsloth import FastLanguageModel
-from trl import GRPOConfig, GRPOTrainer
+from trl import GRPOConfig, GRPOTrainer, SFTConfig, SFTTrainer
 from datasets import load_dataset
 import wandb
 
@@ -157,7 +157,7 @@ def accuracy_reward(completions, **kwargs):
 ##############################################################
 #                       Train setup                          #
 ##############################################################
-training_args = GRPOConfig(
+training_args = SFTConfig(
     learning_rate = 5e-6,
     adam_beta1 = 0.9,
     adam_beta2 = 0.99,
@@ -188,15 +188,15 @@ training_args = GRPOConfig(
 #     config=training_args,
 # )
 
-trainer = GRPOTrainer(
+trainer = SFTTrainer(
     model=model,
     args=training_args,
     processing_class=tokenizer,  # ✅ text-only tokenizer, no 'images' arg
-    reward_funcs=[
-        format_reward,
-        accuracy_reward,
-        language_reward
-    ],
+    # reward_funcs=[
+    #     format_reward,
+    #     accuracy_reward,
+    #     language_reward
+    # ],
     train_dataset=converted_dataset,
 )
 
