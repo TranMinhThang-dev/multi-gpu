@@ -12,10 +12,10 @@ from unsloth import FastVisionModel
 from trl import GRPOConfig, GRPOTrainer
 from datasets import load_dataset, concatenate_datasets, Image as ImageFeature
 
-MAX_SEQ_LENGTH = 4096 # Must be this long for VLMs
-LORA_RANK = 16 # Larger rank = smarter, but slower
+MAX_SEQ_LENGTH = 1024 # Must be this long for VLMs
+LORA_RANK = 8 # Larger rank = smarter, but slower
 LOCAL_RANK = os.environ.get("LOCAL_RANK", 0)
-WORLD_SIZE = int(os.environ.get("WORLD_SIZE", "4"))
+WORLD_SIZE = int(os.environ.get("WORLD_SIZE", "2"))
 PER_DEVICE_BATCH_SIZE = 2//WORLD_SIZE
 GRAD_ACCUM = 1
 
@@ -146,7 +146,7 @@ def convert_to_conversation(sample, subject='math'):
     ]
     return { 
             "prompt" : conversation, 
-            "image": sample["image"], 
+            # "image": sample["image"], 
             "answer": sample["answer"] , 
             'image_path': [sample['image']],  # Store path instead of loaded image
             'question': sample['question'],
