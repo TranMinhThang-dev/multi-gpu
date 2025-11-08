@@ -98,7 +98,7 @@ def path2image(path):
 ##############################################################
 
 model, tokenizer = FastVisionModel.from_pretrained(
-    model_name = "thangtm/AI-tutor",
+    model_name = "Qwen/Qwen3-0.6B",
     max_seq_length = MAX_SEQ_LENGTH,
     load_in_4bit = True, # False for LoRA 16bit
     # fast_inference = True, # Enable vLLM fast inference
