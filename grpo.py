@@ -181,29 +181,23 @@ print("Starting convert to chat prompt template")
 dataset_dict = load_dataset(
     'json', 
     data_files={
-        'math': "data2/math_train.json", 
-        'physic': "data2/physic_train.json",
-        'chemistry': "data2/chemistry_train.json"
+        'math': "/kaggle/input/thinking-data2/data_thinking/correct_data.json", 
     },
 )
 
 math_dataset = dataset_dict['math'].map(lambda example: convert_to_conversation(example, 'math'), batched=False)
-chemistry_dataset = dataset_dict['chemistry'].map(lambda example: convert_to_conversation(example, 'chemistry'), batched=False)
-physic_dataset = dataset_dict['physic'].map(lambda example: convert_to_conversation(example, 'physic'), batched=False)
 
-math_dataset = math_dataset.cast_column("image", ImageFeature())
-chemistry_dataset = chemistry_dataset.cast_column("image", ImageFeature())
-physic_dataset = physic_dataset.cast_column("image", ImageFeature())
+# math_dataset = math_dataset.cast_column("image", ImageFeature())
+# chemistry_dataset = chemistry_dataset.cast_column("image", ImageFeature())
+# physic_dataset = physic_dataset.cast_column("image", ImageFeature())
 
 print("Number of math sample:", len(math_dataset))
-print("Number of physic sample:", len(physic_dataset))
-print("Number of chemistry sample:", len(chemistry_dataset))
 # print("Number of total samples: ", len(dataset))
 
 # converted_dataset = datasets.Dataset.from_list(dataset)
 
 # converted_dataset = concatenate_datasets([math_dataset.select(range(10)), physic_dataset.select(range(10)), chemistry_dataset.select(range(10))])
-converted_dataset = concatenate_datasets([math_dataset, physic_dataset, chemistry_dataset])
+converted_dataset = concatenate_datasets([math_dataset])
     
 converted_dataset = converted_dataset.map(
     lambda example: {
