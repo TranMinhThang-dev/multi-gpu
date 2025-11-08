@@ -1,5 +1,18 @@
-datasets==4.2.0
-torch==2.8.0+cu128
-transformers==4.56.2
-trl==0.23.0
-unsloth==2025.10.7
+# Core requirements for training_code
+transformers>=4.35.0
+accelerate>=0.21.0
+torch>=2.0.0
+scikit-learn>=1.2.0
+numpy>=1.23.0
+pandas>=1.5.0
+tqdm>=4.64.0
+omegaconf>=2.3.0
+trl>=0.7.0
+unsloth
+datasets>=2.14.0
+pydantic>=2.0.0
+Pillow>=9.0.0
+qwen_vl_utils
+langfuse>=2.0.0
+wandb
+math-verify==0.8.0
